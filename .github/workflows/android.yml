@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "android.yml"
+# Estimated savings: ~2 min/run
+#
 name: "Android CI: build and test"
 
 on:
@@ -7,6 +12,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch: # Allows you to run the workflow manually from the Actions tab
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
 
